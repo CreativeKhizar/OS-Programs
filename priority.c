@@ -1,19 +1,20 @@
 #include<stdio.h>
-void fcfs(int b[],int p[],int n)
+void priority(int b[],int p[],int pr[],int n)
 {
         int i;
         int wt=0;
         int tat=0;
         int swt=0;
         int stat=0;
-        printf("Gantt Chart\n");
+        printf("Ghantt Chart\n");
+        printf("Process BurstTime  Priority WaitingTime TurnAroundTime\n");
         for(i=0;i<n;i++)
         {
                 if(i>0)
                 {
                         wt=wt+b[i-1];
                 }
-                printf("P%d  %d-%d\n",p[i],wt,(wt+b[i]));
+                printf("P%d\t\t%d\t\%d\t\%d\t\%d\n",p[i],b[i],pr[i],wt,(wt+b[i]));
                 tat=tat+b[i];
                 swt+=wt;
                 stat+=tat;
@@ -25,6 +26,16 @@ void fcfs(int b[],int p[],int n)
         printf("Average Waiting Time is %f\n",awt);
         printf("Average Turn Around Time is %f\n",atat);
 
+}
+void print(int b[],int p[],int pr[],int n)
+{
+        int i;
+        printf("Process BurstTime Priority\n");
+
+        for(i=0;i<n;i++)
+        {
+                printf("P%d\t%d\t\t%d\n",p[i],b[i],pr[i]);
+        }
 }
 void sort(int b[],int p[],int pr[],int n)
 {
@@ -64,13 +75,17 @@ int main()
         {
                 scanf("%d",&pr[i]);
         }
-        printf("Enter the Burst Time of each Process \n");
+ 	printf("Enter the Burst Time of each Process \n");
         for(i=0;i<n;i++)
         {
                 p[i]=i+1;
                 scanf("%d",&b[i]);
         }
+        printf("The Table before Sorting\n");
+        print(b,p,pr,n);
+        printf("The Table after Sorting\n");
         sort(b,p,pr,n);
-        fcfs(b,p,n);
+        print(b,p,pr,n);
+        priority(b,p,pr,n);
         return 0;
 }
